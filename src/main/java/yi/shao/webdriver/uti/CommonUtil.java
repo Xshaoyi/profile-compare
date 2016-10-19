@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class CommonUtil {
-	private static final String PROFILE_EDIT_URL="https://salespro-sams--scmepdev.cs4.my.salesforce.com/setup/layout/flsedit.jsp?id={id}&type={objname}";
+	private static final String PROFILE_EDIT_URL="https://{domain}/setup/layout/flsedit.jsp?id={id}&type={objname}";
 	public static WebElement findEleInListByText(List<WebElement> eleList, String text, String cssSelector) {
 		WebElement eleRs = null;
 		for (WebElement ele : eleList) {
@@ -51,8 +51,8 @@ public class CommonUtil {
 			return null;
 		}
 	}
-	public static String fomatProfileEditUrl(String profileId,String objectName){
-		return PROFILE_EDIT_URL.replace("{id}", profileId).replace("{objname}", objectName);
+	public static String fomatProfileEditUrl(String profileId,String objectName,String domainName){
+		return PROFILE_EDIT_URL.replace("{id}", profileId).replace("{objname}", objectName).replace("{domain}", domainName);
 		
 	}
 }

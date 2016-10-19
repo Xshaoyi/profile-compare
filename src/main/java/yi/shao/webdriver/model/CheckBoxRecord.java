@@ -3,8 +3,9 @@ package yi.shao.webdriver.model;
 public class CheckBoxRecord {
 	private String fieldName;
 	private String fieldType;
-	private Boolean isReadAccess;
-	private Boolean isEditAccess;
+	private boolean isReadAccess;
+	private boolean isEditAccess;
+	private boolean isUpdate;
 	public String getFieldName() {
 		return fieldName;
 	}
@@ -17,13 +18,13 @@ public class CheckBoxRecord {
 	public void setFieldType(String fieldType) {
 		this.fieldType = fieldType;
 	}
-	public Boolean getIsReadAccess() {
+	public boolean getIsReadAccess() {
 		return isReadAccess;
 	}
 	public void setIsReadAccess(Boolean isReadAccess) {
 		this.isReadAccess = isReadAccess;
 	}
-	public Boolean getIsEditAccess() {
+	public boolean getIsEditAccess() {
 		return isEditAccess;
 	}
 	public void setIsEditAccess(Boolean isEditAccess) {
@@ -33,6 +34,12 @@ public class CheckBoxRecord {
 	public String toString() {
 		return "CheckBoxRecord [fieldName=" + fieldName + ", fieldType=" + fieldType + ", isReadAccess=" + isReadAccess
 				+ ", isEditAccess=" + isEditAccess + "]";
+	}
+	public boolean getIsUpdate() {
+		return isUpdate;
+	}
+	public void setIsUpdate(Boolean isUpdate) {
+		this.isUpdate = isUpdate;
 	}
 	
 }

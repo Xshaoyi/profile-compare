@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -18,18 +20,14 @@ import yi.shao.webdriver.uti.WaitConditionUtil;
 public class ProfileJob {
 	private WebDriver driver;
 	private String profileId;
+	private String domainName;
 	public void init(String url){
 		System.setProperty("webdriver.chrome.driver", "/home/natic/webdriver/chromedriver");
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.get(
-				url);
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		driver.get(url);
+		domainName = getDomainName(url);
+		WaitConditionUtil.waitUtilElemShowById(driver, "setupLink");
 	}
 	public void goToProfile(String profileName) throws InterruptedException{
 		WebElement setUpLink = driver.findElement(By.id("setupLink"));
@@ -37,7 +35,7 @@ public class ProfileJob {
 		WaitConditionUtil.waitUtilPageLoad(driver);
 		WebElement userIcon = driver.findElement(By.id("Users_font"));
 		userIcon.click();
-		Thread.sleep(500);
+		WaitConditionUtil.waitUtilElemShowById(driver, "EnhancedProfiles_font");
 		WebElement userLink = driver.findElement(By.id("EnhancedProfiles_font"));
 		userLink.click();
 		WaitConditionUtil.waitUtilPageLoad(driver);
@@ -52,7 +50,7 @@ public class ProfileJob {
 	}
 	public List<CheckBoxRecord> handleEditFieldLevelSecurityPage(String objName){
 		if(StringUtils.isNoneEmpty(profileId)){
-			driver.get(CommonUtil.fomatProfileEditUrl(profileId, objName));
+			driver.get(CommonUtil.fomatProfileEditUrl(profileId, objName,domainName));
 		}
 		WaitConditionUtil.waitUtilPageLoad(driver);
 		return getProfileInfoList();
@@ -65,6 +63,7 @@ public class ProfileJob {
 	}
 	public List<CheckBoxRecord> getProfileInfoList(){
 		List<CheckBoxRecord> pInfoList = new ArrayList<CheckBoxRecord>();
+		WaitConditionUtil.waitUtilElemShowById(driver, "mainTable");
 		List<WebElement> dataRowList = driver.findElements(By.cssSelector("#mainTable .dataRow"));
 		for(WebElement ele:dataRowList){
 			CheckBoxRecord t = getCheckBoxRecord(ele);
@@ -126,6 +125,7 @@ public class ProfileJob {
 	}
 	private void findProfileAndClick(String profileName){
 		//find profile start with 1st character of profile name
+		WaitConditionUtil.waitUtilElemShowByCssSelector(driver, ".subNav .rolodex");
 		List<WebElement> eleList=driver.findElements(By.cssSelector(".subNav .rolodex a"));
 		WebElement clickElem = CommonUtil.findEleInListByText(eleList, profileName.substring(0, 1),null);
 		clickElem.click();//这里会call ajax 导致页面局部刷新
@@ -136,5 +136,16 @@ public class ProfileJob {
 		
 		WaitConditionUtil.waitUtilPageLoad(driver);
 		
+	}
+	
+	private String getDomainName(String url){
+		String pattern = ".*//(.+)/.*";
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(url);
+		if(m.matches()){
+			return m.group(1);
+		}else{
+			return null;
+		}
 	}
 }
