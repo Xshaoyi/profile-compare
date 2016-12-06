@@ -5,12 +5,13 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
+
 import yi.shao.webdriver.uti.CommonUtil;
 
 public class TestApp {
 	public static void main(String[] args) {
 		System.out.println(getDomainName("aa//dsfsdf.sadfas/1"));
-		
+		getL();
 		
 	}
 	private static String getDomainName(String url){
@@ -22,5 +23,8 @@ public class TestApp {
 		}else{
 			return null;
 		}
+	}
+	private static void getL(){
+		System.out.println("SBA_Number_of_Employeesaaaaaaaaaaaaaaaaa".length());
 	}
 }

@@ -22,7 +22,7 @@ public class ProfileJob {
 	private String profileId;
 	private String domainName;
 	public void init(String url){
-		System.setProperty("webdriver.chrome.driver", "/home/natic/webdriver/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "/Users/yshao009/webdriver/chromedriver");
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get(url);
