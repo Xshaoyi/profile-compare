@@ -9,8 +9,8 @@ import yi.shao.webdriver.profile.ProfileJobFactory;
 
 
 public class App {
-	public static final String url = "https://salespro-sams--scmepdev.cs4.my.salesforce.com/?pw=Pwcwelcome2&un=yi.shao@samsclub.com.scmepdev";
-	public static final String url1 ="https://salespro-sams--scmepdev.cs4.my.salesforce.com/00e1a000000rsEx";
+	public static final String url = "domain+password+username";
+	public static final String url1 ="url";
 	
 	public static void main(String[] args) throws InterruptedException {
 		ProfileJob profileJob = ProfileJobFactory.getProfileJob(url1);
